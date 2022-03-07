@@ -56,8 +56,20 @@ public class ContactPage extends BaseElement {
     @FindBy(xpath = "//span[contains(@class,'address')]/ancestor::div[@class='slds-pill_container ng-hide']/following-sibling::div/input")
     WebElement txtAddress;
 
-    @FindBy(xpath = "input[name*=quantity]")
+    @FindBy(xpath = "//div[@title='14 Victoria Avenue, Castle Hill NSW, Australia']")
+    WebElement lbAddressResult;
+
+    @FindBy(css = "input[name*=quantity]")
     WebElement txtQuantity;
+
+    @FindBy(xpath = "//button[text()='Create Job']")
+    WebElement btnCreateJob;
+
+    @FindBy(xpath = "//button[text()='//p[text()='Job has been created successfully. Select options below to go to further step.']']")
+    WebElement lbCreateScheduleJobSuccess;
+
+    @FindBy(xpath = "//button[text()='Allocate Resources']")
+    WebElement btnAllocateResources;
 
     public void clickScheduleJob() {
         waitVisible(btnScheduleJob);
@@ -119,11 +131,13 @@ public class ContactPage extends BaseElement {
         selectCombobox(cbxServiceAgreementItem, serviceAgreementItem);
     }
 
-    public void inputAddress(String address) {
+    public void chooseAddress(String address) {
         waitVisible(btnRemoveAddress);
         click(btnRemoveAddress);
         waitVisible(txtAddress);
         input(txtAddress, address);
+        waitVisible(lbAddressResult);
+        click(lbAddressResult);
     }
 
     public void inputQuantity(String quantity) {
@@ -131,4 +145,24 @@ public class ContactPage extends BaseElement {
         input(txtQuantity, quantity);
     }
 
+    public void removeTag(String tag) {
+        String locator = String.format("//span[text()='%s']/following-sibling::button", tag);
+        waitVisible(locator);
+        click(locator);
+    }
+
+    public void clickCreateJob() {
+        waitVisible(btnCreateJob);
+        click(btnCreateJob);
+    }
+
+    public String getTextCreateScheduleJobSuccess() {
+        waitVisible(lbCreateScheduleJobSuccess);
+        return getText(lbCreateScheduleJobSuccess);
+    }
+
+    public void clickAllocateResources() {
+        waitVisible(btnAllocateResources);
+        click(btnAllocateResources);
+    }
 }

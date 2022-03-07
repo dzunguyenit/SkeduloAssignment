@@ -68,6 +68,11 @@ public class BaseElement {
         element.click();
     }
 
+    protected void click(String locator) {
+        WebElement element = driver.findElement(By.xpath(locator));
+        element.click();
+    }
+
     protected void click(String locator, String value) {
         String dynamicLocator = String.format(locator, value);
         WebElement element = driver.findElement(By.xpath(dynamicLocator));

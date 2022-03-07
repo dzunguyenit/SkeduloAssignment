@@ -94,7 +94,7 @@ public class ManufacturingOrder extends BaseTest {
         contactPage.selectUrgency("Normal");
         contactPage.inputDescription(description);
 
-        contactPage.inputAddress("14 Victoria Avenue, Castle Hill NSW, Australia");
+        contactPage.chooseAddress("14 Victoria Avenue, Castle Hill NSW, Australia");
 
         contactPage.selectUrgency("Normal");
         contactPage.selectBillable("Billable");
@@ -105,6 +105,13 @@ public class ManufacturingOrder extends BaseTest {
         contactPage.selectCategory("Uncategorised");
         contactPage.selectServiceAgreementItem("Manly SIL - Ass to access community, social and rec activities - indiv -per public holiday - 1:1 - null - Vic/NSW/Qld/Tas 2018/19 ($17,762.39) - NDIS");
 
+        contactPage.removeTag("Peg Feeding");
+        contactPage.removeTag("Drivers License");
+        contactPage.clickCreateJob();
+
+        String createScheduleJobSuccessMessage = contactPage.getTextCreateScheduleJobSuccess();
+        verifyEquals(createScheduleJobSuccessMessage,"Job has been created successfully. Select options below to go to further step.");
+        contactPage.clickAllocateResources();
 
     }
 
