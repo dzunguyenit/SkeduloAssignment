@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="tests">
+	<test name="New Customer, Edit Customer on Chrome">
+		<classes>
+			<class name="com.skedulo.script.ManufacturingOrder" />
+		</classes>
+	</test>
+	<!-- <test name="New Customer, Edit Customer on Firefox"> -->
+	<!-- <parameter name="browser" value="firefox" /> -->
+	<!-- <parameter name="environment" value="prod" /> -->
+	<!-- <parameter name="version" value="2.44" /> -->
+	<!-- <parameter name="dataJson" value="BankGuru.json" /> -->
+	<!-- <classes> -->
+	<!-- <class name="com.bankguru.customer.NewCustomer" /> -->
+	<!-- <class name="com.bankguru.customer.EditCustomer" /> -->
+	<!-- </classes> -->
+	<!-- </test> -->
+</suite> 
