@@ -23,7 +23,7 @@ public class BaseElement {
         this.driver = driver;
     }
 
-    private int timeouts = 10;
+    private int timeouts = 30;
 
 
     // Web Browser
@@ -248,6 +248,7 @@ public class BaseElement {
         WebElement iframe = driver.findElement(By.xpath(locator));
         driver.switchTo().frame(iframe);
     }
+
     protected void switchIframe(WebElement element) {
         driver.switchTo().frame(element);
     }
@@ -345,6 +346,12 @@ public class BaseElement {
         js.executeScript("arguments[0].click();", element);
     }
 
+    protected void clickByJavascript(String locator) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement element = driver.findElement(By.xpath(locator));
+        js.executeScript("arguments[0].click();", element);
+    }
+
     protected Object executeJavascriptToElement(String locator) {
         WebElement element = driver.findElement(By.xpath(locator));
         try {
@@ -429,6 +436,11 @@ public class BaseElement {
         WebDriverWait wait = new WebDriverWait(driver, timeouts);
         By by = By.xpath(locator);
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
+    }
+
+    protected void waitIframeVisible(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, timeouts);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(element));
     }
 //
 //	protected void waitVisible(String locator, String value) {

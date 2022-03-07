@@ -87,7 +87,15 @@ public class ManufacturingOrder extends BaseTest {
 
         int day = now.getDayOfMonth() + 5;
         System.out.println(day);
+        String startDay = "";
+        if (day < 10) {
+            startDay = "0" + day + "/03/2022";
+        } else {
+            startDay = day + "/03/2022";
+        }
 
+        contactPage.switchFrameScheduleJob();
+        contactPage.clickOnStartDay(startDay);
         contactPage.chooseStartDay(String.valueOf(day));
         contactPage.chooseStartTime("10:00");
         contactPage.inputDuration("2");
@@ -109,8 +117,11 @@ public class ManufacturingOrder extends BaseTest {
         contactPage.removeTag("Drivers License");
         contactPage.clickCreateJob();
 
+        contactPage.switchDefault();
         String createScheduleJobSuccessMessage = contactPage.getTextCreateScheduleJobSuccess();
-        verifyEquals(createScheduleJobSuccessMessage,"Job has been created successfully. Select options below to go to further step.");
+        verifyEquals(createScheduleJobSuccessMessage, "Job has been created successfully. Select options below to go to further step.");
+
+        contactPage.switchFrameScheduleJob();
         contactPage.clickAllocateResources();
         // Must Scroll down to Available Resource
 

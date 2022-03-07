@@ -1,6 +1,7 @@
 package com.skedulo.pageobject;
 
 import common.BaseElement;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +17,9 @@ public class ContactPage extends BaseElement {
 
     @FindBy(css = "input[name=startDate]")
     WebElement datetimeStartDay;
+
+    @FindBy(xpath = "//option[text()='Billable']")
+    WebElement optionBillable;
 
     @FindBy(css = "input[name=startTime]")
     WebElement txtStartTime;
@@ -65,7 +69,7 @@ public class ContactPage extends BaseElement {
     @FindBy(xpath = "//button[text()='Create Job']")
     WebElement btnCreateJob;
 
-    @FindBy(xpath = "//button[text()='//p[text()='Job has been created successfully. Select options below to go to further step.']']")
+    @FindBy(xpath = "//p[text()='Job has been created successfully. Select options below to go to further step.']']")
     WebElement lbCreateScheduleJobSuccess;
 
     @FindBy(xpath = "//button[text()='Allocate Resources']")
@@ -77,12 +81,24 @@ public class ContactPage extends BaseElement {
     }
 
     public void chooseStartDay(String startDay) {
-        input(datetimeStartDay, startDay);
+        sleep(3);
+        String dayLocator = String.format("//*[text()='%s']/parent::td", startDay);
+        waitVisible(dayLocator);
+        clickByJavascript(dayLocator);
+    }
+
+    public void clickOnStartDay(String startDay) {
+        sleep(3);
+        waitVisible(optionBillable);
+        waitVisible(datetimeStartDay);
+        input(datetimeStartDay,startDay);
+//        clickByJavascript(datetimeStartDay);
     }
 
     public void chooseStartTime(String startTime) {
         waitVisible(txtStartTime);
         input(txtStartTime, startTime);
+        inputKeyBoard(txtStartTime, Keys.ENTER);
     }
 
     public void inputDuration(String duration) {
@@ -93,9 +109,11 @@ public class ContactPage extends BaseElement {
     public void inputDescription(String description) {
         waitVisible(txtDescription);
         input(txtDescription, description);
+        clickByJavascript(txtDescription);
     }
 
     public void switchFrameScheduleJob() {
+        sleep(11);
         switchIframe(iFrameScheduleJob);
     }
 
@@ -133,11 +151,13 @@ public class ContactPage extends BaseElement {
 
     public void chooseAddress(String address) {
         waitVisible(btnRemoveAddress);
-        click(btnRemoveAddress);
+        clickByJavascript(btnRemoveAddress);
+//        click(btnRemoveAddress);
         waitVisible(txtAddress);
         input(txtAddress, address);
         waitVisible(lbAddressResult);
-        click(lbAddressResult);
+        clickByJavascript(lbAddressResult);
+//        click(lbAddressResult);
     }
 
     public void inputQuantity(String quantity) {
@@ -148,12 +168,13 @@ public class ContactPage extends BaseElement {
     public void removeTag(String tag) {
         String locator = String.format("//span[text()='%s']/following-sibling::button", tag);
         waitVisible(locator);
-        click(locator);
+        clickByJavascript(locator);
     }
 
     public void clickCreateJob() {
         waitVisible(btnCreateJob);
-        click(btnCreateJob);
+        sleep(2);
+        clickByJavascript(btnCreateJob);
     }
 
     public String getTextCreateScheduleJobSuccess() {

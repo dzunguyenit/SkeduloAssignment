@@ -24,6 +24,7 @@ public class HomePage extends BaseElement {
     public ContactPage searchContactName(String contactName) {
         waitVisible(txtContactName);
         input(txtContactName, contactName);
+        sleep(2);
         waitVisible(lbResultName);
         click(lbResultName);
         return PageFactory.initElements(driver, ContactPage.class);
