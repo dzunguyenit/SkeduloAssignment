@@ -9,6 +9,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.skedulo.pageobject.*;
 import common.BaseTest;
 import org.aeonbits.owner.ConfigFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.ITestResult;
@@ -116,12 +117,17 @@ public class ManufacturingOrder extends BaseTest {
         contactPage.removeTag("Drivers License");
         contactPage.clickCreateJob();
 
-        contactPage.switchDefault();
+//        contactPage.switchDefault();
+        String createJobConflictMessage = contactPage.getTextCreateJobConflict();
+        if (StringUtils.isNotEmpty(createJobConflictMessage)) {
+            verifyEquals(createJobConflictMessage, "There are conflicts for the time this Job is scheduled. Do you wish to proceed?");
+            contactPage.clickSave();
+        }
+
         String createScheduleJobSuccessMessage = contactPage.getTextCreateScheduleJobSuccess();
         verifyEquals(createScheduleJobSuccessMessage, "Job has been created successfully. Select options below to go to further step.");
 
-        contactPage.switchFrameScheduleJob();
-        contactPage.clickAllocateResources();
+//        contactPage.switchFrameScheduleJob();
         // Must Scroll down to Available Resource
 
     }

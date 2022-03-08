@@ -69,8 +69,14 @@ public class ContactPage extends BaseElement {
     @FindBy(xpath = "//button[text()='Create Job']")
     WebElement btnCreateJob;
 
-    @FindBy(xpath = "//p[text()='Job has been created successfully. Select options below to go to further step.']']")
+    @FindBy(xpath = "//span[text()='Save']/..")
+    WebElement btnSave;
+
+    @FindBy(xpath = "//p[text()='Job has been created successfully. Select options below to go to further step.']")
     WebElement lbCreateScheduleJobSuccess;
+
+    @FindBy(xpath = "//p[text()='There are conflicts for the time this Job is scheduled. Do you wish to proceed?']")
+    WebElement lbCreateCreateJobConflict;
 
     @FindBy(xpath = "//button[text()='Allocate Resources']")
     WebElement btnAllocateResources;
@@ -84,8 +90,8 @@ public class ContactPage extends BaseElement {
         sleep(3);
         waitVisible(optionBillable);
         waitVisible(datetimeStartDay);
-        input(datetimeStartDay,startDay);
-        inputKeyBoard(datetimeStartDay,Keys.TAB);
+        input(datetimeStartDay, startDay);
+        inputKeyBoard(datetimeStartDay, Keys.TAB);
         sleep(3);
 //        clickByJavascript(datetimeStartDay);
     }
@@ -180,5 +186,21 @@ public class ContactPage extends BaseElement {
     public void clickAllocateResources() {
         waitVisible(btnAllocateResources);
         click(btnAllocateResources);
+    }
+
+    public void clickSave() {
+        waitVisible(btnSave);
+        clickByJavascript(btnSave);
+    }
+
+    public String getTextCreateJobConflict() {
+        String text = "";
+        try {
+            waitVisible(lbCreateCreateJobConflict);
+            text = getText(lbCreateCreateJobConflict);
+        } catch (Exception e) {
+
+        }
+        return text;
     }
 }
