@@ -127,6 +127,7 @@ public class ManufacturingOrder extends BaseTest {
         String createScheduleJobSuccessMessage = contactPage.getTextCreateScheduleJobSuccess();
         verifyEquals(createScheduleJobSuccessMessage, "Job has been created successfully. Select options below to go to further step.");
 
+        contactPage.clickAllocateResources();
 //        contactPage.switchFrameScheduleJob();
         // Must Scroll down to Available Resource
 
