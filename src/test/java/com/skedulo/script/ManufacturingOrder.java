@@ -95,8 +95,7 @@ public class ManufacturingOrder extends BaseTest {
         }
 
         contactPage.switchFrameScheduleJob();
-        contactPage.clickOnStartDay(startDay);
-        contactPage.chooseStartDay(String.valueOf(day));
+        contactPage.chooseStartDay(startDay);
         contactPage.chooseStartTime("10:00");
         contactPage.inputDuration("2");
         contactPage.selectUrgency("Normal");

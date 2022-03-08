@@ -82,16 +82,11 @@ public class ContactPage extends BaseElement {
 
     public void chooseStartDay(String startDay) {
         sleep(3);
-        String dayLocator = String.format("//*[text()='%s']/parent::td", startDay);
-        waitVisible(dayLocator);
-        clickByJavascript(dayLocator);
-    }
-
-    public void clickOnStartDay(String startDay) {
-        sleep(3);
         waitVisible(optionBillable);
         waitVisible(datetimeStartDay);
         input(datetimeStartDay,startDay);
+        inputKeyBoard(datetimeStartDay,Keys.TAB);
+        sleep(3);
 //        clickByJavascript(datetimeStartDay);
     }
 
