@@ -26,7 +26,7 @@ public class JobPage extends BaseElement {
     @FindBy(xpath = "//span[text()='Start']/../following-sibling::div//lightning-formatted-text")
     WebElement lbStartDay;
 
-    @FindBy(xpath = "//span[text()='Job Status']/../following-sibling::div//lightning-formatted-text")
+    @FindBy(xpath = "(//span[text()='Job Status']/../following-sibling::div//lightning-formatted-text[text()='Dispatched'])[2]")
     WebElement lbJobStatus;
 
     @FindBy(xpath = "//span[@title='Job Allocations']/following-sibling::span[@title='(1)']")

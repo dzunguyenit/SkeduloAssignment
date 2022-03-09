@@ -183,12 +183,13 @@ public class JobRecord extends BaseTest {
     }
 
     private String getRandomStartTime() {
-        List<String> listStartTime = Arrays.asList("00:00", "04:00", "06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00");
+        List<String> listStartTime = Arrays.asList("04:00", "06:00", "08:00", "12:00", "14:00", "16:00", "18:00");
 //        List<String> listStartTime = Arrays.asList("00:00", "02:00", "04:00", "06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00");
         Random r = new Random();
         int randomItem = r.nextInt(listStartTime.size());
         return listStartTime.get(randomItem);
     }
+
 
 
     private void checkJobConflict() {
