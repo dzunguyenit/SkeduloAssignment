@@ -17,21 +17,19 @@ public class JobPage extends BaseElement {
     @FindBy(xpath = "(//a[@data-refid='recordId' and contains(text(),'JOB-')])[1]")
     WebElement lbLatestJob;
 
-    @FindBy(xpath = "(//a[@data-refid='recordId' and contains(text(),'JOB-')])[1]")
+    @FindBy(xpath = "//a[text()='Related']")
     WebElement lbTabRelated;
-    @FindBy(xpath = "//span[text()='Finish']/../following-sibling::div")
+
+    @FindBy(xpath = "//span[text()='Finish']/../following-sibling::div//lightning-formatted-text")
     WebElement lbFinishDay;
 
-    @FindBy(xpath = "//span[text()='Start']/../following-sibling::div")
+    @FindBy(xpath = "//span[text()='Start']/../following-sibling::div//lightning-formatted-text")
     WebElement lbStartDay;
 
-    @FindBy(xpath = "//span[text()='Job Status']/../following-sibling::div")
+    @FindBy(xpath = "//span[text()='Job Status']/../following-sibling::div//lightning-formatted-text")
     WebElement lbJobStatus;
 
-    @FindBy(xpath = "//flexipage-tab2[@id='tab-48']//span[@title='Job Allocations']")
-    WebElement lbTitleJobApplication;
-
-    @FindBy(xpath = "//flexipage-tab2[@id='tab-48']//span[@title='Job Allocations']/following-sibling::span")
+    @FindBy(xpath = "//span[@title='Job Allocations']/following-sibling::span[@title='(1)']")
     WebElement lbQuantityRecord;
 
     @FindBy(css = "span#window")
@@ -61,12 +59,14 @@ public class JobPage extends BaseElement {
     }
 
     public void clickRelatedTab() {
+        scrollToElement(lbStartDay);
         waitVisible(lbTabRelated);
         click(lbTabRelated);
     }
 
     public String getStartDay() {
         waitVisible(lbStartDay);
+        scrollToElement(lbStartDay);
         return getText(lbStartDay);
     }
 
@@ -80,14 +80,9 @@ public class JobPage extends BaseElement {
         return getText(lbJobStatus);
     }
 
-    public String getTitleJobApplication() {
-        waitVisible(lbTitleJobApplication);
-        return getText(lbTitleJobApplication);
-    }
-
-    public String getQuantityRecord() {
+    public boolean isDisplayedOneRecord() {
         waitVisible(lbQuantityRecord);
-        return getText(lbQuantityRecord);
+        return isDisplayed(lbQuantityRecord);
     }
 
 

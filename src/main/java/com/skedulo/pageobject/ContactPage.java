@@ -79,6 +79,9 @@ public class ContactPage extends BaseElement {
     @FindBy(xpath = "//p[text()='Job has been created successfully. Select options below to go to further step.']")
     WebElement lbCreateScheduleJobSuccess;
 
+    @FindBy(xpath = "//p[text()='Job has been updated successfully. Select options below to go to further step.']")
+    WebElement lbUpdatedScheduleJobSuccess;
+
     @FindBy(xpath = "//p[text()='There are conflicts for the time this Job is scheduled. Do you wish to proceed?']")
     WebElement lbCreateCreateJobConflict;
 
@@ -91,12 +94,11 @@ public class ContactPage extends BaseElement {
     @FindBy(xpath = "//button[text()='Update Job']")
     WebElement btnUpdateJob;
 
+    @FindBy(xpath = "//button[text()='Go to Job Details Page']")
+    WebElement btnGoToJobDetailsPage;
+
     @FindBy(xpath = "(//*[contains(@class,'available-resources__list')]//p[@class='ng-binding'])[1]")
     WebElement lbFirstResource;
-
-//    .slds-spinner .sked-spinner-medium
-
-    //*[contains(@class,'sked-spinner-medium')]
 
     @FindBy(xpath = "//div[@role='status']//div[contains(@class,'sked-spinner-medium')]")
     WebElement loadingBarCreateJob;
@@ -108,8 +110,8 @@ public class ContactPage extends BaseElement {
     WebElement lbJobs;
 
     public JobPage openJobsPage() {
-        waitVisible(btnScheduleJob);
-        clickByJavascript(btnScheduleJob);
+        waitVisible(lbJobs);
+        clickByJavascript(lbJobs);
         return PageFactory.initElements(driver, JobPage.class);
     }
 
@@ -184,12 +186,10 @@ public class ContactPage extends BaseElement {
     public void chooseAddress(String address) {
         waitVisible(btnRemoveAddress);
         clickByJavascript(btnRemoveAddress);
-//        click(btnRemoveAddress);
         waitVisible(txtAddress);
         input(txtAddress, address);
         waitVisible(lbAddressResult);
         clickByJavascript(lbAddressResult);
-//        click(lbAddressResult);
     }
 
     public void inputQuantity(String quantity) {
@@ -204,8 +204,8 @@ public class ContactPage extends BaseElement {
     }
 
     public void clickCreateJob() {
+        waitInvisible(loadingBarsAllocation,5);
         waitVisible(btnCreateJob);
-        sleep(2);
         clickByJavascript(btnCreateJob);
     }
 
@@ -213,17 +213,20 @@ public class ContactPage extends BaseElement {
         waitVisible(lbCreateScheduleJobSuccess);
         return getText(lbCreateScheduleJobSuccess);
     }
+    public String getTextUpdatedScheduleJobSuccess() {
+        waitVisible(lbUpdatedScheduleJobSuccess);
+        return getText(lbUpdatedScheduleJobSuccess);
+    }
 
     public void clickAllocateResources() {
         waitVisible(btnAllocateResources);
         clickByJavascript(btnAllocateResources);
         waitInvisible(loadingBarsAllocation, 10);
-//        click(btnAllocateResources);
     }
 
     public void clickAllocate() {
         waitVisible(btnAllocate);
-        click(btnAllocate);
+        clickByJavascript(btnAllocate);
     }
 
     public void clickSave() {
@@ -233,12 +236,17 @@ public class ContactPage extends BaseElement {
 
     public void clickOnFirstResource() {
         waitVisible(lbFirstResource);
-        click(lbFirstResource);
+        clickByJavascript(lbFirstResource);
     }
 
     public void clickUpdateJob() {
         waitVisible(btnUpdateJob);
-        click(btnUpdateJob);
+        clickByJavascript(btnUpdateJob);
+    }
+
+    public void clickGoToJobDetailsPage() {
+        waitVisible(btnGoToJobDetailsPage);
+        clickByJavascript(btnGoToJobDetailsPage);
     }
 
 
