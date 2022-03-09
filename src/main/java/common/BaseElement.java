@@ -396,6 +396,11 @@ public class BaseElement {
         }
     }
 
+    protected void scrollToElement(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
     protected void sleep(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
@@ -412,6 +417,11 @@ public class BaseElement {
 
     protected void waitVisible(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, timeouts);
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    protected void waitVisible(WebElement element, int time) {
+        WebDriverWait wait = new WebDriverWait(driver, time);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
@@ -467,6 +477,16 @@ public class BaseElement {
         WebDriverWait wait = new WebDriverWait(driver, timeouts);
         By by = By.xpath(locator);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+
+    protected void waitInvisible(WebElement element, int time) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+            wait.until(ExpectedConditions.invisibilityOf(element));
+        } catch (Exception e) {
+            System.out.println("Loading bar is invisible");
+        }
+
     }
 
     protected void waitAlertPresence() {

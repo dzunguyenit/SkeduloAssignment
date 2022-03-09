@@ -27,8 +27,9 @@ public class ManufacturingOrder extends BaseTest {
     LoginPage loginPage;
     HomePage homePage;
     ContactPage contactPage;
-    ProductPage productPage;
-    ManufacturingPage manufacturingPage;
+    JobPage jobPage;
+//    ProductPage productPage;
+//    ManufacturingPage manufacturingPage;
 
     String pathData = "/data/";
     PropertiesUtil.Enviroment urlEnviroment;
@@ -37,6 +38,7 @@ public class ManufacturingOrder extends BaseTest {
 
     ExtentReports extent;
     ExtentTest logger;
+    String startDay = "";
 
 
     @BeforeClass
@@ -88,7 +90,7 @@ public class ManufacturingOrder extends BaseTest {
 
         int day = now.getDayOfMonth() + 5;
         System.out.println(day);
-        String startDay = "";
+
         if (day < 10) {
             startDay = "0" + day + "/03/2022";
         } else {
@@ -128,32 +130,47 @@ public class ManufacturingOrder extends BaseTest {
         verifyEquals(createScheduleJobSuccessMessage, "Job has been created successfully. Select options below to go to further step.");
 
         contactPage.clickAllocateResources();
+        contactPage.scrollToRefreshResources();
+        contactPage.clickOnFirstResource();
+        contactPage.clickAllocate();
+        contactPage.clickUpdateJob();
+
+        String jobConflictMessage = contactPage.getTextCreateJobConflict();
+        if (StringUtils.isNotEmpty(createJobConflictMessage)) {
+            verifyEquals(jobConflictMessage, "There are conflicts for the time this Job is scheduled. Do you wish to proceed?");
+            contactPage.clickSave();
+        }
 //        contactPage.switchFrameScheduleJob();
         // Must Scroll down to Available Resource
 
     }
 
 
-//    @Test
-//    public void tc_02_CreateProductWithoutName() {
-//
-////        SCENARIO: tc_02_CreateProductWithoutName:
-////        Precondition: Log In Successfully
-////        1. Click Inventory icon
-////        2. Click Menu Products -> Products -> Go to Product Page
-////        3. Click Create button
-////        4. Click Save button
-////        5. Verify error notification is displayed: "Invalid fields: Name"
-//
-//        logger = extent.createTest("tc_02_CreateProductWithoutName");
-//        inventoryPage = homePage.clickInventoryMenu();
-//        productPage = inventoryPage.clickMenuProduct();
-//        productPage.clickCreateProduct();
-//        productPage.btnSaveRecord();
-//        // Don't input name -> show popup "Invalid fields: Name"
-//        verifyEquals(productPage.getNotificationTitle(), "Invalid fields:");
-//        verifyEquals(productPage.getNotificationContent(), "Name");
-//    }
+    @Test
+    public void tc_02_CreateProductWithoutName() {
+
+//        SCENARIO: tc_02_CreateProductWithoutName:
+//        Precondition: Log In Successfully
+//        1. Click Inventory icon
+//        2. Click Menu Products -> Products -> Go to Product Page
+//        3. Click Create button
+//        4. Click Save button
+//        5. Verify error notification is displayed: "Invalid fields: Name"
+
+
+        logger = extent.createTest("tc_02_CreateProductWithoutName");
+        jobPage = contactPage.openJobsPage();
+        jobPage.clickLatestJob();
+        String startDay = jobPage.getStartDay();
+        verifyEquals(startDay, "9/03/2022 9:00 AM");
+        String finishDay = jobPage.getFinishDay();
+        verifyEquals(finishDay, "9/03/2022 10:00 AM");
+        String jobStatus = jobPage.getJobStatus();
+        verifyEquals(jobStatus, "Dispatched");
+        jobPage.clickRelatedTab();
+
+
+    }
 //
 //    @Test
 //    public void tc_03_CreateProductSuccessfully() {

@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class ContactPage extends BaseElement {
 
@@ -72,6 +73,9 @@ public class ContactPage extends BaseElement {
     @FindBy(xpath = "//span[text()='Save']/..")
     WebElement btnSave;
 
+    @FindBy(xpath = "//button[text()='Refresh Available Resources']")
+    WebElement btnRefreshResources;
+
     @FindBy(xpath = "//p[text()='Job has been created successfully. Select options below to go to further step.']")
     WebElement lbCreateScheduleJobSuccess;
 
@@ -81,18 +85,46 @@ public class ContactPage extends BaseElement {
     @FindBy(xpath = "//button[text()='Allocate Resources']")
     WebElement btnAllocateResources;
 
+    @FindBy(xpath = "//button[text()='Allocate']")
+    WebElement btnAllocate;
+
+    @FindBy(xpath = "//button[text()='Update Job']")
+    WebElement btnUpdateJob;
+
+    @FindBy(xpath = "(//*[contains(@class,'available-resources__list')]//p[@class='ng-binding'])[1]")
+    WebElement lbFirstResource;
+
+//    .slds-spinner .sked-spinner-medium
+
+    //*[contains(@class,'sked-spinner-medium')]
+
+    @FindBy(xpath = "//div[@role='status']//div[contains(@class,'sked-spinner-medium')]")
+    WebElement loadingBarCreateJob;
+
+    @FindBy(css = ".slds-spinner .sked-spinner-medium")
+    WebElement loadingBarsAllocation;
+
+    @FindBy(xpath = "//span[text()='Jobs']")
+    WebElement lbJobs;
+
+    public JobPage openJobsPage() {
+        waitVisible(btnScheduleJob);
+        clickByJavascript(btnScheduleJob);
+        return PageFactory.initElements(driver, JobPage.class);
+    }
+
     public void clickScheduleJob() {
         waitVisible(btnScheduleJob);
         clickByJavascript(btnScheduleJob);
     }
 
     public void chooseStartDay(String startDay) {
-        sleep(3);
-        waitVisible(optionBillable);
+        waitVisible(loadingBarCreateJob, 20);
+        waitInvisible(loadingBarCreateJob, 20);
         waitVisible(datetimeStartDay);
         input(datetimeStartDay, startDay);
         inputKeyBoard(datetimeStartDay, Keys.TAB);
-        sleep(3);
+        waitInvisible(loadingBarCreateJob, 3);
 //        clickByJavascript(datetimeStartDay);
     }
 
@@ -114,7 +146,6 @@ public class ContactPage extends BaseElement {
     }
 
     public void switchFrameScheduleJob() {
-        sleep(11);
         switchIframe(iFrameScheduleJob);
     }
 
@@ -185,7 +216,14 @@ public class ContactPage extends BaseElement {
 
     public void clickAllocateResources() {
         waitVisible(btnAllocateResources);
-        click(btnAllocateResources);
+        clickByJavascript(btnAllocateResources);
+        waitInvisible(loadingBarsAllocation, 10);
+//        click(btnAllocateResources);
+    }
+
+    public void clickAllocate() {
+        waitVisible(btnAllocate);
+        click(btnAllocate);
     }
 
     public void clickSave() {
@@ -193,14 +231,33 @@ public class ContactPage extends BaseElement {
         clickByJavascript(btnSave);
     }
 
+    public void clickOnFirstResource() {
+        waitVisible(lbFirstResource);
+        click(lbFirstResource);
+    }
+
+    public void clickUpdateJob() {
+        waitVisible(btnUpdateJob);
+        click(btnUpdateJob);
+    }
+
+
+    public void scrollToRefreshResources() {
+        waitVisible(btnRefreshResources);
+        scrollToElement(btnRefreshResources);
+    }
+
+
     public String getTextCreateJobConflict() {
         String text = "";
         try {
-            waitVisible(lbCreateCreateJobConflict);
+            waitVisible(lbCreateCreateJobConflict, 10);
             text = getText(lbCreateCreateJobConflict);
         } catch (Exception e) {
 
         }
         return text;
     }
+
+
 }
