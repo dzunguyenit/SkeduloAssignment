@@ -4,7 +4,6 @@ import common.BaseElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class JobPage extends BaseElement {
 
@@ -29,15 +28,36 @@ public class JobPage extends BaseElement {
     @FindBy(xpath = "//span[text()='Job Status']/../following-sibling::div")
     WebElement lbJobStatus;
 
-    public void searchContactName(String contactName) {
-        sleep(3);
-        waitVisible(lbResultName);
-        click(lbResultName);
-    }
+    @FindBy(xpath = "//flexipage-tab2[@id='tab-48']//span[@title='Job Allocations']")
+    WebElement lbTitleJobApplication;
+
+    @FindBy(xpath = "//flexipage-tab2[@id='tab-48']//span[@title='Job Allocations']/following-sibling::span")
+    WebElement lbQuantityRecord;
+
+    @FindBy(css = "span#window")
+    WebElement lbJobNameOnRelatedTab;
+
+    @FindBy(xpath = "//span[text()='Job Allocation Name']/../following-sibling::div")
+    WebElement lbJobNameOnDetailTab;
 
     public void clickLatestJob() {
         waitVisible(lbLatestJob);
         click(lbLatestJob);
+    }
+
+    public void clickJobNameRecord() {
+        waitVisible(lbJobNameOnRelatedTab);
+        click(lbJobNameOnRelatedTab);
+    }
+
+    public String getJobNameOnRelatedTab() {
+        waitVisible(lbJobNameOnRelatedTab);
+        return getText(lbJobNameOnRelatedTab);
+    }
+
+    public String getJobNameOnDetailTab() {
+        waitVisible(lbJobNameOnDetailTab);
+        return getText(lbJobNameOnDetailTab);
     }
 
     public void clickRelatedTab() {
@@ -58,6 +78,16 @@ public class JobPage extends BaseElement {
     public String getJobStatus() {
         waitVisible(lbJobStatus);
         return getText(lbJobStatus);
+    }
+
+    public String getTitleJobApplication() {
+        waitVisible(lbTitleJobApplication);
+        return getText(lbTitleJobApplication);
+    }
+
+    public String getQuantityRecord() {
+        waitVisible(lbQuantityRecord);
+        return getText(lbQuantityRecord);
     }
 
 

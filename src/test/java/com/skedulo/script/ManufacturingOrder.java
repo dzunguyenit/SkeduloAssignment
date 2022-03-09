@@ -120,11 +120,7 @@ public class ManufacturingOrder extends BaseTest {
         contactPage.clickCreateJob();
 
 //        contactPage.switchDefault();
-        String createJobConflictMessage = contactPage.getTextCreateJobConflict();
-        if (StringUtils.isNotEmpty(createJobConflictMessage)) {
-            verifyEquals(createJobConflictMessage, "There are conflicts for the time this Job is scheduled. Do you wish to proceed?");
-            contactPage.clickSave();
-        }
+        checkJobConflict();
 
         String createScheduleJobSuccessMessage = contactPage.getTextCreateScheduleJobSuccess();
         verifyEquals(createScheduleJobSuccessMessage, "Job has been created successfully. Select options below to go to further step.");
@@ -135,11 +131,13 @@ public class ManufacturingOrder extends BaseTest {
         contactPage.clickAllocate();
         contactPage.clickUpdateJob();
 
-        String jobConflictMessage = contactPage.getTextCreateJobConflict();
-        if (StringUtils.isNotEmpty(createJobConflictMessage)) {
-            verifyEquals(jobConflictMessage, "There are conflicts for the time this Job is scheduled. Do you wish to proceed?");
-            contactPage.clickSave();
-        }
+        checkJobConflict();
+
+//        String jobConflictMessage = contactPage.getTextCreateJobConflict();
+//        if (StringUtils.isNotEmpty(createJobConflictMessage)) {
+//            verifyEquals(jobConflictMessage, "There are conflicts for the time this Job is scheduled. Do you wish to proceed?");
+//            contactPage.clickSave();
+//        }
 //        contactPage.switchFrameScheduleJob();
         // Must Scroll down to Available Resource
 
@@ -169,7 +167,30 @@ public class ManufacturingOrder extends BaseTest {
         verifyEquals(jobStatus, "Dispatched");
         jobPage.clickRelatedTab();
 
+        String titleJobApplication = jobPage.getTitleJobApplication();
+        String quantityRecord = jobPage.getQuantityRecord();
 
+        String totalRecord = titleJobApplication + quantityRecord;
+        verifyEquals(totalRecord, "Job Allocations (1)");
+
+        String jobNameOnRelatedTab = jobPage.getJobNameOnRelatedTab();
+        jobPage.clickJobNameRecord();
+
+        String jobNameOnDetailTab = jobPage.getJobNameOnDetailTab();
+        verifyEquals(jobNameOnDetailTab, jobNameOnRelatedTab);
+
+        String jobStatusOnDetailTab = jobPage.getJobStatus();
+        verifyEquals(jobStatusOnDetailTab, "Dispatched");
+
+
+    }
+
+    private void checkJobConflict() {
+        String createJobConflictMessage = contactPage.getTextCreateJobConflict();
+        if (StringUtils.isNotEmpty(createJobConflictMessage)) {
+            verifyEquals(createJobConflictMessage, "There are conflicts for the time this Job is scheduled. Do you wish to proceed?");
+            contactPage.clickSave();
+        }
     }
 //
 //    @Test
