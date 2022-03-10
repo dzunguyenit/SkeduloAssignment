@@ -47,7 +47,7 @@ public class JobRecord extends BaseTest {
     @BeforeClass
     public void beforeClass() {
 
-        ExtentHtmlReporter reporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/Reports/ManufacturingOrder.html");
+        ExtentHtmlReporter reporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/Reports/CreateJobSaleForce.html");
         extent = new ExtentReports();
         extent.attachReporter(reporter);
 

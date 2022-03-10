@@ -65,7 +65,7 @@ Intellij
 Import Maven Project
 
 Running Tests
-Edit runLeapXpert.xml to run suite
+Edit runSkedulo.xml to run suite
 
 Intellij menu, click Build > Build Project
 
