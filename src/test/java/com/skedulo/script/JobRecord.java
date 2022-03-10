@@ -124,7 +124,7 @@ public class JobRecord extends BaseTest {
         System.out.println(now.format(timeFormatter));
 
 //       Choose startday = now + 7
-//        Config start day = now + day(config on file staging.properties: day=7) to avoid duplicate Resource Avalable
+//        Config start day = now + day(config on file staging.properties: day=7) to avoid duplicate Resource Available
         int day = now.getDayOfMonth() + Integer.parseInt(urlEnviroment.day());
         System.out.println(day);
 //      If ( day < 10 ) startday
