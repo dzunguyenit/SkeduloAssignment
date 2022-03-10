@@ -62,10 +62,11 @@ public class JobRecord extends BaseTest {
 
     @Test
     public void tc_01_LogInSuccessfully() {
-//        SCENARIO: tc_01_LogInSuccessfully:
-//        1: Go to login page: https://test.salesforce.com
-//        2: Log In with a username and password: healthcareqa@skedulo.com.full/Skedulo2022@@
-//        3: Verify HomePage is displayed with text: Home
+      /*  SCENARIO: tc_01_LogInSuccessfully:
+        1: Go to login page: https://test.salesforce.com
+        2: Log In with a username and password: healthcareqa@skedulo.com.full/Skedulo2022@@
+        3: Verify HomePage is displayed with text: Home
+      */
 
         logger = extent.createTest("tc_01_LogInSuccessfully");
         loginPage = PageFactory.initElements(driver, LoginPage.class);
@@ -81,7 +82,35 @@ public class JobRecord extends BaseTest {
 
     @Test
     public void tc_02_createJobSuccessfully() {
+/*
+        SCENARIO: tc_02_createJobSuccessfully:
+        Precondition: Log In Successfully
+        1. Click on the search bar at the top and search Contact Name: Jenny John Dow
+        2. Open the Contact: Jenny John Dow
+        3. Click on the Schedule Job button
+        4. Choose the Date is Today + 5
+        5. Choose the Start Time is 10:00 AM
+        6. Choose the Duration is 2 hrs
+        7. Choose Urgency is Normal
+        8. Input to Description is: This is a Test Job
+        9. Choose the Region that is Sydney
+        10. Choose Address Type that is Client and change Address field to14 Victoria Avenue, Castle Hill NSW, Australia
+        11. Choose Billable field is Billable, and Travel Area is Remote.
+        12. Choose Service Setting in Additional Field section, choosing Service Setting is Online Service.
+        13. In the Service Details section, please select follow up details below:
+        + Delivery Method: Fixed Quantity.
+        + Quantity: 2.
+        + Category: Uncategorised.
+        + Service Agreement Item: Choose the first item - “Manly SIL - Ass to access community, social and rec activities - indiv -per public holiday - 1:1 - null - Vic/NSW/Qld/Tas 2018/19 ($17,762.39) - NDIS.
 
+        14. In the Resource Requirement section:
+        + Remove all the pre-populate Tag: Peg Feeding, Drivers License.
+        + Click on Create Job button.
+        15. Click on Allocate Resources button on the Resource Allocation modal.
+        16. At the Available Resource section, click on the first resource in the list
+        17. Click on Allocate button when the name of the resource appears in the Selected Resource section.
+        18. The resource appears in the Allocated Resource section and clicks the Update Job button.
+*/
         logger = extent.createTest("tc_02_createJobSuccessfully");
 
         String contactName = "Jenny John Dow";
@@ -181,6 +210,18 @@ public class JobRecord extends BaseTest {
 
     @Test
     public void tc_03_VerifyJobCreatedWithCorrectInfo() {
+        /*
+        SCENARIO: tc_03_VerifyJobCreatedWithCorrectInfo:
+        Precondition: Log In Successfully and create Job Successfully:
+
+        EXPECTED RESULT:
+        1. Checking Job record is created successfully (Job Tab)
+        2. Job record details should have this information:
+        + Date/Time is the same when choosing to schedule the job
+                + Job Status is Dispatched
+                + Move to Related tab and check Job Allocation has one record
+        + Open Job Allocation record and checking Name of resource is same with the resource that we have allocated and Status is Dispatched
+        */
 
         logger = extent.createTest("tc_03_VerifyJobCreatedWithCorrectInfo");
         jobPage = contactPage.openJobsPage();
