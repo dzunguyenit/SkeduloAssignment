@@ -124,7 +124,8 @@ public class JobRecord extends BaseTest {
         System.out.println(now.format(timeFormatter));
 
 //       Choose startday = now + 5
-        int day = now.getDayOfMonth() + 1;
+//        Config start day = now + day(config on file staging.properties: day=2)
+        int day = now.getDayOfMonth() + Integer.parseInt(urlEnviroment.day());
         System.out.println(day);
 //      If ( day < 10 ) startday
 //      Example = 9, startday = "09/03/2022"

@@ -15,6 +15,8 @@ public class PropertiesUtil {
 
         String username();
 
+        String day();
+
         String password();
 
         @Key("db.hostname")
