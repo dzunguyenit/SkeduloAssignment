@@ -187,16 +187,18 @@ public class JobRecord extends BaseTest {
 
 //        Click on the latest Job created
         jobPage.clickLatestJob();
-//       Get Start Day -> Expected result Start Day
-        String startDay = jobPage.getStartDay();
+//       Get Start Day -> Actual result Start Day
+        String actualStartDay = jobPage.getStartDay();
 //        Verify start day at testcase: tc_02_createJobSuccessfully -> Expected result
 //        and start Day at testcase: tc_03_VerifyJobCreatedWithCorrectInfo-> Actual result
-        verifyEquals(startDay, "9/03/2022 9:00 AM");
+        verifyTrue(actualStartDay.contains(startDay));
+//        verifyEquals(startDay, "9/03/2022 9:00 AM");
 
 //        Verify finish day at testcase: tc_02_createJobSuccessfully + duration: 2 hours -> Expected result
 //        and finish Day at testcase: tc_03_VerifyJobCreatedWithCorrectInfo-> Actual result
         String finishDay = jobPage.getFinishDay();
-        verifyEquals(finishDay, "9/03/2022 10:00 AM");
+        verifyTrue(finishDay.contains(finishDay));
+//        verifyEquals(finishDay, "9/03/2022 10:00 AM");
         String jobStatus = "";
 
 //       Using for because web is unstable, sometime must refresh page to Status Dispatched is appear
