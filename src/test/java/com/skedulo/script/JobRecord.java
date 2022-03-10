@@ -244,7 +244,7 @@ public class JobRecord extends BaseTest {
         String jobStatus = "";
 
 //       Using for because web is unstable, sometime must refresh page to Status Dispatched is appear
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 0; i <= 5; i++) {
             jobStatus = jobPage.getJobStatus();
             if (jobStatus.equals("Dispatched")) {
                 break;
