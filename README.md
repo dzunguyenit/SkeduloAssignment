@@ -82,3 +82,6 @@ Result:
 Report 
 
 https://github.com/dzunguyenit/SkeduloAssignment/blob/main/ReportsImage/report.png
+
+Video demo for this project on link youtube:
+https://www.youtube.com/watch?v=ncHvd-1BVaI
