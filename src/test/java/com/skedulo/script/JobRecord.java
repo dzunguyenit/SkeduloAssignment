@@ -74,6 +74,7 @@ public class JobRecord extends BaseTest {
         loginPage.inputPassword(urlEnviroment.password());
         homePage = loginPage.clickLogIn();
         verifyTrue(homePage.isDisplayedHomePage());
+
     }
 
     @Test
@@ -90,7 +91,7 @@ public class JobRecord extends BaseTest {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println(now.format(timeFormatter));
 
-        int day = now.getDayOfMonth() + 5;
+        int day = now.getDayOfMonth() + 1;
         System.out.println(day);
 
         if (day < 10) {
@@ -159,16 +160,26 @@ public class JobRecord extends BaseTest {
 
         logger = extent.createTest("tc_03_VerifyJobCreatedWithCorrectInfo");
         jobPage = contactPage.openJobsPage();
+
         jobPage.clickLatestJob();
         String startDay = jobPage.getStartDay();
 //        verifyEquals(startDay, "9/03/2022 9:00 AM");
         String finishDay = jobPage.getFinishDay();
 //        verifyEquals(finishDay, "9/03/2022 10:00 AM");
-        String jobStatus = jobPage.getJobStatus();
+        String jobStatus = "";
+
+        for (int i = 0; i <= 2; i++) {
+            jobStatus = jobPage.getJobStatus();
+            if (jobStatus.equals("Dispatched")) {
+                break;
+            }
+        }
         verifyEquals(jobStatus, "Dispatched");
         jobPage.clickRelatedTab();
 
         verifyTrue(jobPage.isDisplayedOneRecord());
+
+        jobPage.clickOnJobAllocationRecord();
 
         String jobNameOnRelatedTab = jobPage.getJobNameOnRelatedTab();
         jobPage.clickJobNameRecord();
@@ -176,7 +187,7 @@ public class JobRecord extends BaseTest {
         String jobNameOnDetailTab = jobPage.getJobNameOnDetailTab();
         verifyEquals(jobNameOnDetailTab, jobNameOnRelatedTab);
 
-        String jobStatusOnDetailTab = jobPage.getJobStatus();
+        String jobStatusOnDetailTab = jobPage.getJobStatusDispatchedDetail();
         verifyEquals(jobStatusOnDetailTab, "Dispatched");
 
 
@@ -189,7 +200,6 @@ public class JobRecord extends BaseTest {
         int randomItem = r.nextInt(listStartTime.size());
         return listStartTime.get(randomItem);
     }
-
 
 
     private void checkJobConflict() {

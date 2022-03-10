@@ -21,6 +21,9 @@ public class HomePage extends BaseElement {
     @FindBy(xpath = "//span[text()='Home']")
     WebElement lbHome;
 
+    @FindBy(xpath = "//span[text()='Jobs']")
+    WebElement lbJobs;
+
     public ContactPage searchContactName(String contactName) {
         waitVisible(txtContactName);
         input(txtContactName, contactName);
@@ -33,6 +36,12 @@ public class HomePage extends BaseElement {
     public boolean isDisplayedHomePage() {
         waitVisible(lbHome);
         return isDisplayed(lbHome);
+    }
+
+    public JobPage openJobsPage() {
+        waitVisible(lbJobs);
+        clickByJavascript(lbJobs);
+        return PageFactory.initElements(driver, JobPage.class);
     }
 
 }

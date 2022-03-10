@@ -26,13 +26,16 @@ public class JobPage extends BaseElement {
     @FindBy(xpath = "//span[text()='Start']/../following-sibling::div//lightning-formatted-text")
     WebElement lbStartDay;
 
-    @FindBy(xpath = "(//span[text()='Job Status']/../following-sibling::div//lightning-formatted-text[text()='Dispatched'])[2]")
-    WebElement lbJobStatus;
+    @FindBy(xpath = "//span[text()='Job Status']/../following-sibling::div//lightning-formatted-text[text()='Dispatched']")
+    WebElement lbJobStatusDispatched;
+
+    @FindBy(xpath = "//span[text()='Status']/../following-sibling::div//lightning-formatted-text[text()='Dispatched']")
+    WebElement lbJobStatusDispatchedDetailScreen;
 
     @FindBy(xpath = "//span[@title='Job Allocations']/following-sibling::span[@title='(1)']")
     WebElement lbQuantityRecord;
 
-    @FindBy(css = "span#window")
+    @FindBy(css = "a[title*=JA-]")
     WebElement lbJobNameOnRelatedTab;
 
     @FindBy(xpath = "//span[text()='Job Allocation Name']/../following-sibling::div")
@@ -41,16 +44,21 @@ public class JobPage extends BaseElement {
     public void clickLatestJob() {
         waitVisible(lbLatestJob);
         click(lbLatestJob);
+        sleep(1);
+        refreshPage();
+        sleep(3);
     }
 
     public void clickJobNameRecord() {
         waitVisible(lbJobNameOnRelatedTab);
-        click(lbJobNameOnRelatedTab);
+        clickByJavascript(lbJobNameOnRelatedTab);
     }
 
     public String getJobNameOnRelatedTab() {
+        String text = "";
         waitVisible(lbJobNameOnRelatedTab);
-        return getText(lbJobNameOnRelatedTab);
+        text = getText(lbJobNameOnRelatedTab);
+        return text;
     }
 
     public String getJobNameOnDetailTab() {
@@ -59,9 +67,9 @@ public class JobPage extends BaseElement {
     }
 
     public void clickRelatedTab() {
-        scrollToElement(lbStartDay);
+        scrollToElement(lbTabRelated);
         waitVisible(lbTabRelated);
-        click(lbTabRelated);
+        clickByJavascript(lbTabRelated);
     }
 
     public String getStartDay() {
@@ -76,13 +84,38 @@ public class JobPage extends BaseElement {
     }
 
     public String getJobStatus() {
-        waitVisible(lbJobStatus);
-        return getText(lbJobStatus);
+        String status = "";
+        try {
+            sleep(3);
+            refreshPage();
+            sleep(3);
+            scrollToElement(lbJobStatusDispatched);
+            waitVisible(lbJobStatusDispatched);
+            status = getText(lbJobStatusDispatched);
+        } catch (Exception e) {
+        }
+        return status;
+    }
+
+    public String getJobStatusDispatchedDetail() {
+        String status = "";
+        try {
+            scrollToElement(lbJobStatusDispatchedDetailScreen);
+            waitVisible(lbJobStatusDispatchedDetailScreen);
+            status = getText(lbJobStatusDispatchedDetailScreen);
+        } catch (Exception e) {
+        }
+        return status;
     }
 
     public boolean isDisplayedOneRecord() {
         waitVisible(lbQuantityRecord);
         return isDisplayed(lbQuantityRecord);
+    }
+
+    public void clickOnJobAllocationRecord() {
+        waitVisible(lbQuantityRecord);
+        click(lbQuantityRecord);
     }
 
 

@@ -36,5 +36,4 @@ public class LoginPage extends BaseElement {
         click(btnLogIn);
         return PageFactory.initElements(driver, HomePage.class);
     }
-
 }

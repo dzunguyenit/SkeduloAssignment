@@ -331,10 +331,20 @@ public class BaseElement {
     }
 
     // Javascript
-    protected String executeJavascriptToBrowser(String javaSript) {
+//    protected String executeJavascriptToBrowser(String javaSript) {
+//        try {
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            return (String) js.executeScript(javaSript);
+//        } catch (Exception e) {
+//            e.getMessage();
+//            return null;
+//        }
+//    }
+
+    protected String executeJavascriptToBrowser(String javaScript) {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
-            return (String) js.executeScript(javaSript);
+            return (String) js.executeScript(javaScript);
         } catch (Exception e) {
             e.getMessage();
             return null;
